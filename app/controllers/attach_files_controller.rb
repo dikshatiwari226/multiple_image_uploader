@@ -25,7 +25,6 @@ class AttachFilesController < ApplicationController
   # POST /attach_files.json
   def create
     byebug
-    
     @attach_file = AttachFile.new
     if params[:attach_file][:image].present?
       params[:attach_file][:image].each do |img|
@@ -83,6 +82,6 @@ class AttachFilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attach_file_params
-      params.require(:attach_file).permit(:title, {image:[]})
+      params.require(:attach_file).permit(:title, image:[])
     end
 end

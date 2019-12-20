@@ -1,12 +1,16 @@
 <%#= form_with(model: attach_file, local: true, multipart: true) do |form| %>
-<%= form_with(model: attach_file, local: true) do |form| %>
+<%= form_with(model: attach_file, local: true, multiple: true) do |form| %>
   <div class="field">
     <%= form.label :image %>
-    <%= form.file_field :image, id: "uploadBtn", :multiple => true,name: "attach_file[]", style: "display: none !important;" %>
+    <%#= form.file_field :image, id: "uploadBtn", :multiple => true,name: "attach_file[]", style: "display: none !important;" %>
     <input type="button" value="Choose File" onclick="document.getElementById('uploadBtn').click();" />
   </div>
 
-  <input type="hidden" name="item_name[]" id="item_name" />
+  <!-- <input type="hidden" name="attach_file[]" id="item_name" /> -->
+
+  <span id="file-field">
+    <%= file_field_tag :avatar, name: "attach_file[image][]", :multiple => true, :class => 'browse pic-val', :onchange => "validateFiles(this); uploadCrop(this);", :id=>"uploadBtn", data: { max_file_size: 6.megabytes }%>
+  </span> 
 
   <div class="actions">
     <%= form.submit %>
@@ -25,12 +29,13 @@
   })
 
   document.getElementById("uploadBtn").onchange = function() {
-    document.getElementById("uploadFile").value = this.value;
+    document.getElementById("uploadFiles").value = this.value;
   };
 
   document.getElementById('uploadBtn').onchange = uploadOnChange;
 
   function uploadOnChange() {
+    debugger
     var filename = this.value;
     var lastIndex = filename.lastIndexOf("\\");
     if (lastIndex >= 0) {
@@ -40,6 +45,7 @@
     for (var i = 0; i < files.length; i++) {
       (function(i) {
         $("#upload_prev").append('<div><br><div class="col-md-10"><span class="uploadFiles">' + '<a href="">' + files[i].name + '</a>' + '</span></div><div class="col-md-2"><br></div></div>');
+        $('#file-field').append('<input type="hidden" class="browse pic-val" data-max-file-size="6291456"  multiple="multiple" name="attach_file[image][]" value="' + files[i].name + '" />'); 
         $("#upload_prev a:contains(" + files[i].name + ")")
           .on("click", function(e) {
             e.preventDefault();
@@ -59,8 +65,10 @@
           })
       })(i);
     }
-
     document.getElementById('filename').value = filename;
-
+    // document.getElementById('item_name')value.append(files[i]);
+    // append(document.getElementById('item_name').value);
+// .append('item_name').value
   }
 </script>
+
