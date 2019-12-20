@@ -1,0 +1,66 @@
+<%#= form_with(model: attach_file, local: true, multipart: true) do |form| %>
+<%= form_with(model: attach_file, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image, id: "uploadBtn", :multiple => true,name: "attach_file[]", style: "display: none !important;" %>
+    <input type="button" value="Choose File" onclick="document.getElementById('uploadBtn').click();" />
+  </div>
+
+  <input type="hidden" name="item_name[]" id="item_name" />
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+ 
+  <input id="filename" type="hidden" /><br>
+  <div id="upload_prev"></div>
+
+<% end %>
+
+
+
+<script type="text/javascript">
+    $(document).on('click', '.close', function() {
+    $(this).siblings("img").toggle();
+  })
+
+  document.getElementById("uploadBtn").onchange = function() {
+    document.getElementById("uploadFile").value = this.value;
+  };
+
+  document.getElementById('uploadBtn').onchange = uploadOnChange;
+
+  function uploadOnChange() {
+    var filename = this.value;
+    var lastIndex = filename.lastIndexOf("\\");
+    if (lastIndex >= 0) {
+      filename = filename.substring(lastIndex + 1);
+    }
+    var files = $('#uploadBtn')[0].files;
+    for (var i = 0; i < files.length; i++) {
+      (function(i) {
+        $("#upload_prev").append('<div><br><div class="col-md-10"><span class="uploadFiles">' + '<a href="">' + files[i].name + '</a>' + '</span></div><div class="col-md-2"><br></div></div>');
+        $("#upload_prev a:contains(" + files[i].name + ")")
+          .on("click", function(e) {
+            e.preventDefault();
+            var close = $(this).closest("div")
+              .next("div")
+              .find(".close");
+            if (!$(this).closest("div")
+              .next("div").find("img").length)
+              close
+              .after(
+                $("<img>", {
+                  src: URL.createObjectURL(files[i])
+                })
+              )
+            else
+              close.siblings("img").toggle()
+          })
+      })(i);
+    }
+
+    document.getElementById('filename').value = filename;
+
+  }
+</script>
