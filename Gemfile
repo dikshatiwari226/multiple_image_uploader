@@ -65,4 +65,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem 'carrierwave'
+gem 'jquery-fileupload-rails'
+# gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
 # gem 'jquery-fileupload-rails'

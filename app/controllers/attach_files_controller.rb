@@ -24,15 +24,29 @@ class AttachFilesController < ApplicationController
   # POST /attach_files
   # POST /attach_files.json
   def create
-    byebug
     @attach_file = AttachFile.new
-    if params[:attach_file][:image].present?
-      params[:attach_file][:image].each do |img|
-      @attach_file = AttachFile.new(image: img)
-      @attach_file.save
+    if params[:attach_file].present?
+      images = params[:attach_file].pop
+      params[:attach_file].each do |img|
+        @attach_file = AttachFile.new(image: img)
+        @attach_file.save
       end
+    # if params[:attach_file].present?
+    #   params[:attach_file].each_with_index do |img, index|
+    #     if params[:attach_file].count != (index + 1)
+    #       @attach_file = AttachFile.new(image: img)
+    #       @attach_file.save
+    #     end
+    #   end
     end
       redirect_to attach_files_path, notice: 'Attach file was successfully created.'
+
+    # @attach_file = AttachFile.new(attach_file_params)
+    # if @attach_file.save
+    #   redirect_to attach_files_path, notice: 'Attach file was successfully created.'
+    # end
+
+
     #   if attach_file_params[:image]
     #     attach_file_params[:image].each do  |img|
     #      @file =  AttachFile.new(image: img, title: attach_file_params[:title])
