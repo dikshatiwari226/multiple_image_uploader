@@ -11,9 +11,8 @@
   </div>
   <div class="file-chooser">
     <%= form.file_field :image, :multiple => true, name: "attach_file[]", class: "file-chooser__input" %>
-    <!-- <input class="file-chooser__input" type="file" multiple="true"> -->
   </div>
-  <input class="file-uploader__submit-button" type="submit" value="Upload">
+  <input class="file-uploader__submit-button" type="submit" value="Upload"><br/><br/>
 
    
 
@@ -70,7 +69,7 @@
          $('.file-chooser').append($('.file-chooser__input').clone({ withDataAndEvents: true})); 
        
          //add the name and a remove button to the file-list
-         $('.file-list').append('<li style="display: none;"><span class="file-list__name">' + fileName + '</span><button class="removal-button" data-uploadid="'+ uploadId +'"></button></li>');
+         $('.file-list').append('<li style="display: none;"><span class="file-list__name">' + fileName + '</span><button class="removal-button" data-uploadid="'+ uploadId +'">X</button></li></br>');
          $('.file-list').find("li:last").show(800);
         
          //removal button handler
@@ -147,7 +146,7 @@ $(document).ready(function(){
 $file-uploader__primaryColor: rgb(114, 191, 167);
 $file-uploader__primaryColor--hover: lighten($file-uploader__primaryColor, 15%);
 $file-uploader__black: #242424;
-$file-uploader__error: coral; /*rgb(214, 93, 56);*/
+$file-uploader__error: rgb(214, 93, 56);
 
 //style
 .file-uploader {
@@ -185,11 +184,8 @@ $file-uploader__error: coral; /*rgb(214, 93, 56);*/
 .removal-button {
   width: 20%;
   border: none;
-  background-color: $file-uploader__error;
-  background-color: coral !important;
-  /*color: green !important;*/
-
-  
+  background-color: rgb(214, 93, 56) !important;
+  color: white;
   &::before {
     content: 'X'
   }
@@ -212,7 +208,6 @@ $file-uploader__error: coral; /*rgb(214, 93, 56);*/
   max-width: 400px;
   height: auto;
   margin: 2em auto;
- 
   & * {
     display: block;
   }
@@ -234,13 +229,13 @@ $file-uploader__error: coral; /*rgb(214, 93, 56);*/
 
 .file-list li {
   @extend %clearfix;
+  background-color: antiquewhite;
 }
 
 .removal-button {
   display: inline-block;
   height: 100%;
   float: right;
-  color: black !important;
 }
 
 .file-chooser {
@@ -253,12 +248,12 @@ $file-uploader__error: coral; /*rgb(214, 93, 56);*/
 }
 
 .file-uploader__submit-button {
-  width: 100%;
+  width: 30%;
   border: none;
+  margin-left: 35%;
   font-size: 1.5em;
-  padding: 1em;
-  background-color: $file-uploader__primaryColor;
-  background-color: cadetblue !important;
+  padding: 0.5em;
+  background-color: rgb(114, 191, 167);
   color: white;
   &:hover {
     background-color: $file-uploader__primaryColor--hover;
@@ -299,6 +294,7 @@ $file-uploader__error: coral; /*rgb(214, 93, 56);*/
 ul, li {
   margin: 0;
   padding: 0;
+  /*background-color: white;*/
 }
 
 

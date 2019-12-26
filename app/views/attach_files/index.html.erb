@@ -1,11 +1,13 @@
+<div class="container">
+
 <p id="notice"><%= notice %></p>
 
-<h1>Attach Files</h1>
+<h1 class="text-center">Attach Files</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Title</th>
+      <!-- <th>Title</th> -->
       <th>Image</th>
       <th colspan="3"></th>
     </tr>
@@ -14,11 +16,11 @@
   <tbody>
     <% @attach_files.each do |attach_file| %>
       <tr>
-        <td><%= attach_file.title %></td>
-        <td><%= image_tag attach_file.image.url, class: "thumbnail" if attach_file.image? %></td>
-        <td><%= link_to 'Show', attach_file %></td>
-        <td><%= link_to 'Edit', edit_attach_file_path(attach_file) %></td>
-        <td><%= link_to 'Destroy', attach_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!-- <td><%#= attach_file.title %></td> -->
+        <td><%= image_tag attach_file.image.thumb.url, class: "thumbnail" if attach_file.image? %></td>
+        <td><%= link_to 'Show', attach_file, class: "btn btn-primary"%></td>
+        <td><%= link_to 'Edit', edit_attach_file_path(attach_file), class: "btn btn-success" %></td>
+        <td><%= link_to 'Destroy', attach_file, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger"%></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,5 @@
 
 <br>
 
-<%= link_to 'New Attach File', new_attach_file_path %>
+<%= link_to 'New Attach File', new_attach_file_path, class: "btn btn-success text-white" %>
+</div>

@@ -24,20 +24,21 @@ class AttachFilesController < ApplicationController
   # POST /attach_files
   # POST /attach_files.json
   def create
-    @attach_file = AttachFile.new
     if params[:attach_file].present?
-      images = params[:attach_file].pop
-      params[:attach_file].each do |img|
-        @attach_file = AttachFile.new(image: img)
-        @attach_file.save
+      params[:attach_file].each_with_index do |img, index|
+        if params[:attach_file].count != (index + 1)
+          @attach_file = AttachFile.new(image: img)
+          @attach_file.save
+        end
       end
+    # @attach_file = AttachFile.new
     # if params[:attach_file].present?
-    #   params[:attach_file].each_with_index do |img, index|
-    #     if params[:attach_file].count != (index + 1)
-    #       @attach_file = AttachFile.new(image: img)
-    #       @attach_file.save
-    #     end
+    #   images = params[:attach_file].pop
+    #   params[:attach_file].each do |img|
+    #     @attach_file = AttachFile.new(image: img)
+    #     @attach_file.save
     #   end
+    
     end
       redirect_to attach_files_path, notice: 'Attach file was successfully created.'
 
@@ -96,6 +97,6 @@ class AttachFilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attach_file_params
-      params.require(:attach_file).permit(:title, image:[])
+      params.require(:attach_file).permit(:title, {image:[]})
     end
 end
